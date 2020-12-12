@@ -27,9 +27,23 @@ const Game = (props: GameProps) => {
   );
   //playerが動いたときに描画させるためのupdate/setUpdate
   const [update, setUpdata] = useState<boolean>(false);
-  const [status, setStatus] = useState<string>("Game is ongoing");
 
+  // status
+  let status = "Game is ongoing";
+  if (check_gameover(robotList)) {
+    status = "Game Over...";
+  }
+
+  //Game Clear
   let bonus = calc_bonus(level);
+  if (is_wipeout(robotList)) {
+    // initialize board for next level
+    setLevel(level + 1);
+    setScore(count_total_dead_enemy(robotList, level + 1) * 10 + bonus);
+    setRobotList(init_robots(robotList, level + 1));
+    bonus = calc_bonus(level + 1);
+  }
+
   const submit = (move: RobotMove) => {
     // Game Overのときは入力を受け付けない
     if (status === "Game Over...") return;
@@ -39,20 +53,6 @@ const Game = (props: GameProps) => {
     setUpdata(update ? false : true);
     setRobotList(move_robots(robotList, move));
     setScore(count_total_dead_enemy(robotList, level) * 10 + bonus);
-
-    //Game Clear
-    if (is_wipeout(robotList)) {
-      // initialize board for next level
-      setLevel(level + 1);
-      setScore(count_total_dead_enemy(robotList, level + 1) * 10 + bonus);
-      setRobotList(init_robots(robotList, level + 1));
-      bonus = calc_bonus(level + 1);
-    }
-
-    // Game Over
-    if (check_gameover(robotList)) {
-      setStatus("Game Over...");
-    }
   };
 
   return (
