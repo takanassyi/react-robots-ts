@@ -19,6 +19,7 @@ export type GameProps = {
   robotList: RobotInfo[];
 };
 
+//const Game: React.FC<GameProps> = (props: GameProps) => {
 const Game = (props: GameProps) => {
   const [level, setLevel] = useState<number>(1);
   const [score, setScore] = useState<number>(0);

@@ -1,9 +1,11 @@
 import React from "react";
 import "./App.css";
-import Game, { GameProps } from "components/Game";
+import Game from "components/Game";
 
 function App() {
-  return <Game robotList={[]} />;
+  return (
+    (document.title = "Robots (React App Ver.)"), (<Game robotList={[]} />)
+  );
 }
 
 export default App;
