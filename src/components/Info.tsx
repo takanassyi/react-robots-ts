@@ -33,9 +33,15 @@ const Info = (props: InfoProps) => {
       <label>
         <h4>Status:</h4>
       </label>
-      <div>
-        <label>{props.status}</label>
-      </div>
+      {props.status === "Game Over..." ? (
+        <div className="note">
+          <label>{props.status}</label>
+        </div>
+      ) : (
+        <div>
+          <label>{props.status}</label>
+        </div>
+      )}
     </React.Fragment>
   );
 };
