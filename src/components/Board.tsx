@@ -14,7 +14,7 @@ function put_robot(robotList: RobotInfo[], x: number, y: number): ISquare {
   // https://www.hanachiru-blog.com/entry/2019/10/31/154305
 
   let val: ISquare = null;
-  robotList.find((element) => {
+  robotList.forEach((element) => {
     if (element.x === x && element.y === y) {
       switch (element.type) {
         case RobotType.Player:
