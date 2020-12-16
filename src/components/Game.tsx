@@ -16,54 +16,49 @@ import {
 } from "components/Robots";
 
 export type GameProps = {
+  level: number;
+  score: number;
   robotList: RobotInfo[];
 };
 
-//const Game: React.FC<GameProps> = (props: GameProps) => {
-const Game = (props: GameProps) => {
-  const [level, setLevel] = useState<number>(1);
-  const [score, setScore] = useState<number>(0);
-  const [robotList, setRobotList] = useState<RobotInfo[]>(
-    init_robots(props.robotList, level)
-  );
-  //playerが動いたときに描画させるためのupdate/setUpdate
-  const [update, setUpdata] = useState<boolean>(false);
+const Game: React.FC<GameProps> = (props: GameProps) => {
+  const [state, setState] = useState<GameProps>(props);
 
   // status
   let status = "Game is ongoing";
-  if (check_gameover(robotList)) {
+  if (check_gameover(state.robotList)) {
     status = "Game Over...";
   }
-
+  let bonus = calc_bonus(state.level);
   //Game Clear
-  let bonus = calc_bonus(level);
-  if (is_wipeout(robotList)) {
-    // initialize board for next level
-    setLevel(level + 1);
-    setScore(count_total_dead_enemy(robotList, level + 1) * 10 + bonus);
-    setRobotList(init_robots(robotList, level + 1));
-    bonus = calc_bonus(level + 1);
+  if (is_wipeout(state.robotList)) {
+    setState({
+      ...state,
+      level: state.level + 1,
+      score:
+        count_total_dead_enemy(state.robotList, state.level + 1) * 10 + bonus,
+      robotList: init_robots(state.robotList, state.level + 1),
+    });
   }
-
   const submit = (move: RobotMove) => {
     // Game Overのときは入力を受け付けない
     if (status === "Game Over...") return;
 
-    // ロボットの動きで他のコンポーネントを強制的に描画させる
-    // robotList,setRobotListの持たせ方に問題？
-    setUpdata(update ? false : true);
-    setRobotList(move_robots(robotList, move));
-    setScore(count_total_dead_enemy(robotList, level) * 10 + bonus);
+    setState({
+      ...state,
+      robotList: move_robots(state.robotList, move),
+      score: count_total_dead_enemy(state.robotList, state.level) * 10 + bonus,
+    });
   };
 
   return (
     <div className="game">
       <div className="game-board">
-        <Board robotList={robotList} width={width} height={height} />
+        <Board robotList={state.robotList} width={width} height={height} />
       </div>
       <div className="game-info">
         <Control onClick={submit} />
-        <Info level={level} score={score} status={status} />
+        <Info level={state.level} score={state.score} status={status} />
       </div>
     </div>
   );
