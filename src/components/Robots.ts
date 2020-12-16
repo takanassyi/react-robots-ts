@@ -256,19 +256,3 @@ export function calc_bonus(level: number): number {
   }
   return bonus;
 }
-
-export function calc_score(
-  current_robot_list: RobotInfo[],
-  current_level: number
-): number {
-  let current_score = 0;
-  //calc bonus
-  for (let l = 0; l < current_level; l++) {
-    current_score += l * 100;
-  }
-  //calc total number of scrap
-
-  current_score +=
-    count_total_dead_enemy(current_robot_list, current_level) * 10;
-  return current_score;
-}

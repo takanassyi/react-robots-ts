@@ -22,6 +22,7 @@ export type GameProps = {
 };
 
 const Game: React.FC<GameProps> = (props: GameProps) => {
+  // useState
   const [state, setState] = useState<GameProps>(props);
 
   // status
@@ -29,7 +30,10 @@ const Game: React.FC<GameProps> = (props: GameProps) => {
   if (check_gameover(state.robotList)) {
     status = "Game Over...";
   }
+
+  // bonus
   let bonus = calc_bonus(state.level);
+
   //Game Clear
   if (is_wipeout(state.robotList)) {
     setState({
@@ -40,6 +44,8 @@ const Game: React.FC<GameProps> = (props: GameProps) => {
       robotList: init_robots(state.robotList, state.level + 1),
     });
   }
+
+  // event handler
   const submit = (move: RobotMove) => {
     // Game Overのときは入力を受け付けない
     if (status === "Game Over...") return;
@@ -51,6 +57,7 @@ const Game: React.FC<GameProps> = (props: GameProps) => {
     });
   };
 
+  // render
   return (
     <div className="game">
       <div className="game-board">
