@@ -1,7 +1,7 @@
-import React, { useState } from "react";
-import Control from "components/Control";
-import Board from "components/Board";
-import Info from "components/Info";
+import React, { useState } from 'react';
+import Control from 'components/Control';
+import Board from 'components/Board';
+import Info from 'components/Info';
 import {
   width,
   height,
@@ -13,7 +13,7 @@ import {
   check_gameover,
   count_total_dead_enemy,
   calc_bonus,
-} from "components/Robots";
+} from 'components/Robots';
 
 export type GameProps = {
   level: number;
@@ -26,9 +26,9 @@ const Game: React.FC<GameProps> = (props: GameProps) => {
   const [state, setState] = useState<GameProps>(props);
 
   // status
-  let status = "Game is ongoing";
+  let status = 'Game is ongoing';
   if (check_gameover(state.robotList)) {
-    status = "Game Over...";
+    status = 'Game Over...';
   }
 
   // bonus
@@ -48,7 +48,7 @@ const Game: React.FC<GameProps> = (props: GameProps) => {
   // event handler
   const submit = (move: RobotMove) => {
     // Game Overのときは入力を受け付けない
-    if (status === "Game Over...") return;
+    if (status === 'Game Over...') return;
 
     setState({
       ...state,

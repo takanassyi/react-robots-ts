@@ -1,1 +1,1 @@
-export type ISquare = "@" | "+" | "*" | null;
+export type ISquare = '@' | '+' | '*' | null;
