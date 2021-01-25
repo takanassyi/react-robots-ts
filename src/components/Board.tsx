@@ -1,7 +1,7 @@
-import React from "react";
-import Square from "components/Square";
-import { ISquare } from "components/interfaces";
-import { RobotInfo, RobotType } from "components/Robots";
+import React from 'react';
+import Square from 'components/Square';
+import { ISquare } from 'components/interfaces';
+import { RobotInfo, RobotType } from 'components/Robots';
 
 interface BoardProps {
   width: number;
@@ -18,13 +18,13 @@ function put_robot(robotList: RobotInfo[], x: number, y: number): ISquare {
     if (element.x === x && element.y === y) {
       switch (element.type) {
         case RobotType.Player:
-          val = "@";
+          val = '@';
           break;
         case RobotType.Enemy:
-          val = "+";
+          val = '+';
           break;
         case RobotType.Scrap:
-          val = "*";
+          val = '*';
           break;
         default:
           val = null;
