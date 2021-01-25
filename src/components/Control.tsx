@@ -1,6 +1,6 @@
-import React from "react";
-import "../index.css";
-import { RobotMove } from "components/Robots";
+import React from 'react';
+import '../index.css';
+import { RobotMove } from 'components/Robots';
 
 interface ControlProps {
   onClick: Function;

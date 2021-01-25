@@ -1,4 +1,4 @@
-import React from "react";
+import React from 'react';
 
 type InfoProps = {
   level: number;
@@ -33,7 +33,7 @@ const Info = (props: InfoProps) => {
       <label>
         <h4>Status:</h4>
       </label>
-      {props.status === "Game Over..." ? (
+      {props.status === 'Game Over...' ? (
         <div className="note">
           <label>{props.status}</label>
         </div>
